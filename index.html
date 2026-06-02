@@ -1,1099 +1,1592 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cenzo's Italy Shop – Echtes Italien. Direkt in Memmingen.</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cenzo's Italy Shop – Feinkost Memmingen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      --terra:   #B8382B;
+      --terra-d: #8F2920;
+      --verde:   #2D5A3D;
+      --verde-l: #3B7A52;
+      --gold:    #C8A96E;
+      --gold-l:  #D9C08E;
+      --cream:   #F7F2E8;
+      --cream-d: #EDE5D0;
+      --espresso:#1E1208;
+      --ink:     #3D2812;
+      --t-ease:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-  :root {
-    --terra: #B8382B;
-    --terra-light: #D4594A;
-    --verde: #2D5A3D;
-    --verde-light: #4A7A5A;
-    --verde-pale: #E8F0EA;
-    --bianco: #FDFAF4;
-    --gold: #C8A96E;
-    --cream: #F7F2E8;
-    --sand: #EDE4D0;
-    --espresso: #1E1208;
-    --espresso-mid: #3D2410;
-    --text: #1A1A1A;
-  }
+    /* ── RESET ───────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--espresso);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-  html { scroll-behavior: smooth; }
+    /* ── ANIMATION ───────────────────────────────────────────────── */
+    .fu {
+      opacity: 0;
+      transform: translateY(52px);
+      transition: opacity 1s var(--t-ease), transform 1s var(--t-ease);
+    }
+    .fu.on { opacity: 1; transform: translateY(0); }
+    .fu-d1 { transition-delay: 0.1s; }
+    .fu-d2 { transition-delay: 0.2s; }
+    .fu-d3 { transition-delay: 0.3s; }
+    .fu-d4 { transition-delay: 0.4s; }
+    .fu-d5 { transition-delay: 0.5s; }
+    .fu-d6 { transition-delay: 0.6s; }
 
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+    /* ── LAYOUT ──────────────────────────────────────────────────── */
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px;
+    }
+    @media(max-width:768px){ .wrap { padding: 0 24px; } }
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.4s ease;
-    background: transparent;
-  }
-  nav.scrolled {
-    background: var(--cream);
-    box-shadow: 0 2px 30px rgba(44,26,14,0.08);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: color 0.4s;
-  }
-  nav.scrolled .nav-logo { color: var(--espresso); }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  nav.scrolled .nav-links a { color: var(--espresso-mid); }
-  .nav-links a:hover { color: var(--terra); }
-  .nav-cta {
-    background: var(--terra);
-    color: white !important;
-    padding: 0.6rem 1.4rem;
-    border-radius: 2px;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.3s;
-  }
-  .nav-cta:hover { background: var(--terra-light) !important; }
+    /* ── TYPOGRAPHY HELPERS ──────────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--espresso);
+      margin-bottom: 26px;
+    }
+    .section-title em { font-style: italic; color: var(--verde); }
+    .section-body {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--ink);
+    }
+    .gold-rule {
+      display: block;
+      width: 44px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 22px;
+    }
 
-  /* HERO */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: 
-      linear-gradient(160deg, rgba(44,26,14,0.75) 0%, rgba(44,26,14,0.45) 60%, rgba(107,124,69,0.3) 100%),
-      url('https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?w=1800&q=80') center/cover no-repeat;
-  }
-  .hero-content {
-    position: relative;
-    text-align: center;
-    padding: 0 2rem;
-    max-width: 900px;
-  }
-  .hero-eyebrow {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 300;
-    color: white;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    margin-bottom: 1rem;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: #F0C080;
-  }
-  .hero-sub {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.8);
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-  }
-  .hero-btns {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    background: var(--terra);
-    color: white;
-    padding: 0.9rem 2.2rem;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .btn-primary:hover { background: var(--terra-light); transform: translateY(-2px); }
-  .btn-outline {
-    border: 1px solid rgba(255,255,255,0.6);
-    color: white;
-    padding: 0.9rem 2.2rem;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
-  .scroll-hint {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .scroll-line {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0%, 100% { transform: scaleY(1); opacity: 1; }
-    50% { transform: scaleY(0.5); opacity: 0.3; }
-  }
+    /* ── BUTTONS ─────────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 16px 42px;
+      border: 1.5px solid transparent;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-terra { background: var(--terra); color: #fff; border-color: var(--terra); }
+    .btn-terra:hover { background: var(--terra-d); border-color: var(--terra-d); transform: translateY(-2px); }
+    .btn-outline-light {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+    }
+    .btn-outline-light:hover { border-color: var(--gold); background: rgba(200,169,110,0.12); transform: translateY(-2px); }
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--espresso);
+      border-color: rgba(30,18,8,0.35);
+    }
+    .btn-outline-dark:hover { background: var(--espresso); color: var(--cream); transform: translateY(-2px); }
+    .btn-cream { background: var(--cream); color: var(--espresso); border-color: var(--cream); }
+    .btn-cream:hover { background: var(--gold-l); border-color: var(--gold-l); transform: translateY(-2px); }
 
-  /* WELCOME STRIP */
-  .welcome-strip {
-    background: var(--espresso);
-    padding: 1.4rem 2rem;
-    text-align: center;
-  }
-  .welcome-strip p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-style: italic;
-    font-weight: 300;
-    color: rgba(255,255,255,0.95);
-    letter-spacing: 0.03em;
-  }
+    /* ════════════════════════════════════════════════════════════ */
+    /* NAV                                                          */
+    /* ════════════════════════════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      padding: 30px 0;
+      transition: background 0.5s ease, box-shadow 0.5s ease, padding 0.5s ease;
+    }
+    #nav.scrolled {
+      background: rgba(247,242,232,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(30,18,8,0.08), 0 4px 24px rgba(30,18,8,0.06);
+      padding: 16px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px;
+    }
+    @media(max-width:768px){ .nav-inner { padding: 0 24px; } }
 
-  .tricolor {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin-bottom: 0.8rem;
-  }
-  .tricolor span {
-    height: 3px;
-    width: 60px;
-  }
-  .tc-green { background: #2D5A3D; }
-  .tc-white { background: rgba(255,255,255,0.7); }
-  .tc-red { background: #B8382B; }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      font-style: italic;
+      color: #fff;
+      letter-spacing: 0.01em;
+      transition: color 0.45s ease;
+      flex-shrink: 0;
+    }
+    #nav.scrolled .nav-logo { color: var(--espresso); }
 
-  /* SECTION COMMONS */
-  section { padding: 8rem 3rem; }
-  .section-label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--terra);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 4vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--espresso);
-  }
-  .section-title em { font-style: italic; color: var(--terra); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      transition: color 0.3s;
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.35s var(--t-ease);
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+    #nav.scrolled .nav-links a { color: var(--ink); }
+    #nav.scrolled .nav-links a:hover { color: var(--terra); }
 
-  /* ABOUT */
-  .about { background: var(--cream); border-left: 6px solid var(--verde); }
-  .about-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .about-image {
-    position: relative;
-  }
-  .about-image img {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-    border-radius: 2px;
-    display: block;
-  }
-  .about-image-accent {
-    position: absolute;
-    bottom: -2rem;
-    right: -2rem;
-    width: 160px;
-    height: 160px;
-    background: var(--verde);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  .about-image-accent span:first-child {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: white;
-    line-height: 1;
-  }
-  .about-image-accent span:last-child {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-top: 0.3rem;
-  }
-  .about-text { padding-right: 2rem; }
-  .about-text .section-title { margin-bottom: 1.5rem; }
-  .about-text p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--espresso-mid);
-    line-height: 1.9;
-    margin-bottom: 1.2rem;
-  }
-  .about-signature {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-style: italic;
-    color: var(--terra);
-    margin-top: 1.5rem;
-  }
+    .nav-cta {
+      background: var(--terra) !important;
+      color: #fff !important;
+      padding: 10px 26px;
+      border-radius: 2px;
+      transition: background 0.3s !important;
+    }
+    .nav-cta:hover { background: var(--terra-d) !important; }
+    .nav-cta::after { display: none !important; }
 
-  /* SORTIMENT */
-  .sortiment { background: var(--cream); }
-  .sortiment-header {
-    max-width: 1200px;
-    margin: 0 auto 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  .sortiment-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-    background: var(--espresso);
-  }
-  .product-card {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    background: var(--cream);
-  }
-  .product-card img {
-    width: 100%;
-    height: 340px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .product-card:hover img { transform: scale(1.05); }
-  .product-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(44,26,14,0.85) 0%, rgba(44,26,14,0.1) 60%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.8rem;
-    transition: background 0.3s;
-  }
-  .product-card:hover .product-overlay {
-    background: linear-gradient(to top, rgba(201,98,63,0.9) 0%, rgba(201,98,63,0.3) 60%, transparent 100%);
-  }
-  .product-it {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
-    font-style: italic;
-    color: white;
-    line-height: 1.1;
-  }
-  .product-de {
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-top: 0.3rem;
-  }
-  .sortiment-teaser {
-    max-width: 1200px;
-    margin: 2rem auto 0;
-    text-align: center;
-  }
-  .sortiment-teaser p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: #2D5A3D;
-  }
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-burger span {
+      display: block;
+      width: 26px; height: 1.5px;
+      background: #fff;
+      border-radius: 2px;
+      transition: background 0.4s;
+    }
+    #nav.scrolled .nav-burger span { background: var(--espresso); }
 
-  /* LIFESTYLE BANNER */
-  .lifestyle {
-    position: relative;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 3rem;
-    overflow: hidden;
-  }
-  .lifestyle-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(135deg, rgba(30,18,8,0.88) 0%, rgba(45,90,61,0.55) 100%),
-      url('https://images.unsplash.com/photo-1513135467880-6c41a5c44b9d?w=1800&q=80') center/cover no-repeat;
-  }
-  .lifestyle-content {
-    position: relative;
-    text-align: center;
-    max-width: 700px;
-  }
-  .lifestyle-content .section-label { color: rgba(255,255,255,0.6); }
-  .lifestyle-content h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 5vw, 5rem);
-    font-weight: 300;
-    color: white;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-  .lifestyle-content p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-  }
+    @media(max-width:960px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+    }
 
-  /* PILLARS */
-  .pillars { background: #EBF2EC; }
-  .pillars-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .pillars-header {
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
-  }
-  .pillar {
-    text-align: center;
-  }
-  .pillar-icon {
-    width: 64px;
-    height: 64px;
-    border: 1px solid var(--verde);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.8rem;
-  }
-  .pillar-icon svg {
-    width: 28px;
-    height: 28px;
-    stroke: var(--verde);
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .pillar h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--espresso);
-    margin-bottom: 0.8rem;
-  }
-  .pillar p {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--espresso-mid);
-    line-height: 1.8;
-  }
+    /* Mobile full-screen menu */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      background: var(--espresso);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+      transition: color 0.25s;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute;
+      top: 28px; right: 32px;
+      background: none; border: none;
+      color: rgba(247,242,232,0.5);
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.25s;
+    }
+    .mobile-close:hover { color: var(--cream); }
 
-  /* INSTAGRAM */
-  .instagram { background: var(--cream); padding: 7rem 3rem; }
-  .instagram-inner { max-width: 1200px; margin: 0 auto; }
-  .instagram-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .instagram-handle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-style: italic;
-    color: var(--terra);
-    margin-top: 0.5rem;
-    display: block;
-  }
-  .instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-  }
-  .insta-item {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1;
-  }
-  .insta-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  .insta-item:hover img { transform: scale(1.08); }
-  .insta-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(201,98,63,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .insta-item:hover .insta-overlay { opacity: 1; }
-  .insta-overlay svg {
-    width: 32px; height: 32px;
-    stroke: white; fill: none;
-    stroke-width: 1.5;
-  }
+    /* ════════════════════════════════════════════════════════════ */
+    /* HERO                                                         */
+    /* ════════════════════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85');
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+      animation: heroZoom 14s ease-out forwards;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.06); }
+      to   { transform: scale(1); }
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        155deg,
+        rgba(30,18,8,0.62) 0%,
+        rgba(30,18,8,0.38) 48%,
+        rgba(30,18,8,0.72) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 960px;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(4.5rem, 11vw, 10rem);
+      color: #fff;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeUp 1.1s 0.75s forwards;
+    }
+    .hero-title-alt {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 1.1s 0.95s forwards;
+    }
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s 1.15s forwards;
+    }
+    .hero-divider span { display: block; width: 60px; height: 1px; background: var(--gold); opacity: 0.6; }
+    .hero-divider i { display: block; width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards;
+    }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 1s 2.2s forwards;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.58rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .scroll-bar {
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, rgba(200,169,110,0.7), transparent);
+      animation: scrollPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.4; transform: scaleY(0.8); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-  /* NEWSLETTER */
-  .newsletter {
-    background: var(--terra);
-    padding: 6rem 3rem;
-    text-align: center;
-  }
-  .newsletter-inner { max-width: 560px; margin: 0 auto; }
-  .newsletter h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: white;
-    margin-bottom: 1rem;
-  }
-  .newsletter p {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-  }
-  .newsletter-form {
-    display: flex;
-    gap: 0;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-  .newsletter-form input {
-    flex: 1;
-    padding: 0.9rem 1.2rem;
-    border: none;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    outline: none;
-    border-radius: 0;
-  }
-  .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
-  .newsletter-form button {
-    padding: 0.9rem 1.5rem;
-    background: var(--espresso);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: background 0.3s;
-  }
-  .newsletter-form button:hover { background: var(--espresso-mid); }
-  .newsletter-fine {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 1rem;
-  }
+    /* ════════════════════════════════════════════════════════════ */
+    /* WELCOME STRIP                                                */
+    /* ════════════════════════════════════════════════════════════ */
+    .welcome-strip {
+      background: var(--espresso);
+      padding: 32px 24px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .welcome-strip p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .welcome-strip em {
+      font-style: normal;
+      color: rgba(247,242,232,0.35);
+      font-size: 0.72em;
+      margin: 0 20px;
+    }
 
-  /* LOCATION */
-  .location { background: var(--sand); }
-  .location-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .location-info .section-title { margin-bottom: 2.5rem; }
-  .location-detail {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    align-items: flex-start;
-  }
-  .location-detail-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--terra);
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .location-detail-icon svg {
-    width: 16px; height: 16px;
-    stroke: white; fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-  }
-  .location-detail-text strong {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--terra);
-    margin-bottom: 0.2rem;
-  }
-  .location-detail-text span {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: var(--espresso-mid);
-    line-height: 1.6;
-  }
-  .location-map {
-    background: var(--espresso);
-    height: 460px;
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .location-map img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7;
-  }
-  .map-pin {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .map-pin-dot {
-    width: 20px; height: 20px;
-    background: var(--terra);
-    border-radius: 50%;
-    border: 3px solid white;
-    box-shadow: 0 0 0 4px rgba(201,98,63,0.3);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(201,98,63,0.3); }
-    50% { box-shadow: 0 0 0 10px rgba(201,98,63,0.1); }
-  }
-  .map-label {
-    background: var(--terra);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 2px;
-  }
+    /* ════════════════════════════════════════════════════════════ */
+    /* ÜBER UNS                                                     */
+    /* ════════════════════════════════════════════════════════════ */
+    #ueber {
+      padding: 140px 0;
+      background: var(--cream);
+    }
+    .ueber-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    @media(max-width:860px) {
+      .ueber-inner { grid-template-columns: 1fr; gap: 60px; }
+      .ueber-img-col { order: -1; }
+    }
+    .ueber-text .gold-rule { display: block; }
+    .ueber-text .section-body + .section-body { margin-top: 18px; }
+    .ueber-cta { margin-top: 44px; display: flex; gap: 14px; flex-wrap: wrap; }
 
-  /* FOOTER */
-  footer {
-    border-top: 4px solid var(--verde);
-    background: var(--espresso);
-    padding: 5rem 3rem 3rem;
-    color: rgba(255,255,255,0.5);
-  }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin-bottom: 2rem;
-  }
-  .footer-brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
-    color: white;
-    margin-bottom: 0.5rem;
-  }
-  .footer-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 1.5rem;
-  }
-  .footer-social {
-    display: flex;
-    gap: 0.8rem;
-  }
-  .footer-social a {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-  }
-  .footer-social a:hover { border-color: var(--terra); background: var(--terra); }
-  .footer-social svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.5; }
-  .footer-social a:hover svg { stroke: white; }
-  .footer-col h4 {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 1.2rem;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col ul li {
-    margin-bottom: 0.7rem;
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.6);
-  }
-  .footer-col ul li a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-col ul li a:hover { color: var(--terra-light); }
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.25);
-  }
-  .footer-bottom a {
-    color: inherit;
-    text-decoration: none;
-    margin-left: 1.5rem;
-    transition: color 0.3s;
-  }
-  .footer-bottom a:hover { color: rgba(255,255,255,0.5); }
+    .ueber-img-col { position: relative; }
+    .ueber-img {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 40px 90px rgba(30,18,8,0.2);
+    }
+    .ueber-img img { transition: transform 0.9s var(--t-ease); }
+    .ueber-img:hover img { transform: scale(1.04); }
 
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .fade-up:nth-child(2) { transition-delay: 0.1s; }
-  .fade-up:nth-child(3) { transition-delay: 0.2s; }
-  .fade-up:nth-child(4) { transition-delay: 0.3s; }
-  .fade-up:nth-child(5) { transition-delay: 0.4s; }
-  .fade-up:nth-child(6) { transition-delay: 0.5s; }
+    .ueber-badge {
+      position: absolute;
+      bottom: -28px;
+      left: -28px;
+      background: var(--terra);
+      color: #fff;
+      padding: 30px 34px;
+      border-radius: 2px;
+      box-shadow: 0 16px 48px rgba(184,56,43,0.35);
+    }
+    .ueber-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      display: block;
+      line-height: 1;
+    }
+    .ueber-badge span {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    @media(max-width:768px) {
+      .ueber-badge { bottom: -16px; left: 16px; padding: 20px 24px; }
+      .ueber-badge strong { font-size: 2.2rem; }
+    }
 
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 5rem 1.5rem; }
-    .about-inner, .location-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .sortiment-grid { grid-template-columns: repeat(2, 1fr); }
-    .pillars-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .instagram-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .about-image img { height: 400px; }
-    .about-image-accent { display: none; }
-  }
-</style>
+    /* ════════════════════════════════════════════════════════════ */
+    /* SORTIMENT                                                    */
+    /* ════════════════════════════════════════════════════════════ */
+    #sortiment {
+      background: #EDE5D0;
+      padding: 130px 0 0;
+    }
+    .sortiment-head {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto 72px;
+    }
+    .sortiment-head .gold-rule { margin: 0 auto 22px; }
+
+    .sortiment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    @media(max-width:860px) { .sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width:480px) { .sortiment-grid { grid-template-columns: 1fr; } }
+
+    .s-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .s-card img { transition: transform 1s var(--t-ease); }
+    .s-card:hover img { transform: scale(1.08); }
+
+    .s-card-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(30,18,8,0.94) 0%,
+        rgba(30,18,8,0.25) 50%,
+        rgba(30,18,8,0.05) 100%
+      );
+      transition: opacity 0.4s ease;
+    }
+    .s-card:hover .s-card-grad { opacity: 0.9; }
+
+    .s-card-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 32px 28px;
+      transform: translateY(0);
+      transition: transform 0.55s var(--t-ease);
+    }
+    .s-card:hover .s-card-body { transform: translateY(-10px); }
+
+    .s-card-it {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.75rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .s-card-de {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 18px;
+    }
+    .s-card-link {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(200,169,110,0.35);
+      padding-bottom: 2px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
+    }
+    .s-card:hover .s-card-link { opacity: 1; transform: translateY(0); }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* LIFESTYLE BANNER                                             */
+    /* ════════════════════════════════════════════════════════════ */
+    #lifestyle {
+      position: relative;
+      height: 85vh;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .lifestyle-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1800&q=85');
+      background-size: cover;
+      background-position: center 40%;
+      background-attachment: fixed;
+    }
+    @media(max-width:768px){ .lifestyle-bg { background-attachment: scroll; } }
+    .lifestyle-overlay {
+      position: absolute; inset: 0;
+      background: rgba(30,18,8,0.68);
+    }
+    .lifestyle-content {
+      position: relative; z-index: 2;
+      max-width: 860px;
+      padding: 0 32px;
+    }
+    .lifestyle-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 4.5vw, 3.6rem);
+      color: var(--cream);
+      line-height: 1.35;
+      margin-bottom: 30px;
+    }
+    .lifestyle-quote::before { content: '\201C'; color: var(--gold); margin-right: 2px; }
+    .lifestyle-quote::after  { content: '\201D'; color: var(--gold); margin-left:  2px; }
+    .lifestyle-attr {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* DREI SÄULEN                                                  */
+    /* ════════════════════════════════════════════════════════════ */
+    #saeulen {
+      padding: 130px 0;
+      background: var(--cream);
+    }
+    .saeulen-head {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 84px;
+    }
+    .saeulen-head .gold-rule { margin: 0 auto 22px; }
+
+    .saeulen-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 64px 52px;
+    }
+    @media(max-width:768px) { .saeulen-grid { grid-template-columns: 1fr; gap: 52px; } }
+
+    .saeulen-item { text-align: center; }
+    .saeulen-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 28px;
+      color: var(--verde);
+      stroke: currentColor;
+    }
+    .saeulen-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: var(--espresso);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .saeulen-item p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* INSTAGRAM                                                    */
+    /* ════════════════════════════════════════════════════════════ */
+    #instagram {
+      padding: 100px 0 0;
+      background: #EDE5D0;
+    }
+    .ig-head {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .ig-head .gold-rule { margin: 0 auto 22px; }
+    .ig-handle {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--espresso);
+      margin-top: 18px;
+      transition: color 0.3s;
+    }
+    .ig-handle:hover { color: var(--terra); }
+    .ig-handle svg { flex-shrink: 0; }
+
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    @media(max-width:600px) { .ig-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .ig-post {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .ig-post img { transition: transform 0.8s var(--t-ease); }
+    .ig-post:hover img { transform: scale(1.07); }
+    .ig-post-ov {
+      position: absolute; inset: 0;
+      background: rgba(30,18,8,0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.4s ease;
+    }
+    .ig-post:hover .ig-post-ov { background: rgba(30,18,8,0.52); }
+    .ig-post-meta {
+      display: flex; gap: 22px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .ig-post:hover .ig-post-meta { opacity: 1; }
+    .ig-post-meta span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    .ig-footer {
+      text-align: center;
+      padding: 52px 0 0;
+    }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* NEWSLETTER                                                   */
+    /* ════════════════════════════════════════════════════════════ */
+    #newsletter {
+      background: var(--espresso);
+      padding: 110px 0;
+      text-align: center;
+    }
+    .nl-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .nl-inner .eyebrow { color: var(--gold); }
+    .nl-inner .section-title { color: var(--cream); }
+    .nl-inner .section-body { color: rgba(247,242,232,0.6); margin-bottom: 44px; }
+
+    .nl-form {
+      display: flex;
+      gap: 0;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.35);
+    }
+    .nl-form input {
+      flex: 1;
+      padding: 18px 24px;
+      background: rgba(247,242,232,0.07);
+      border: 1px solid rgba(247,242,232,0.1);
+      border-right: none;
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: background 0.3s;
+    }
+    .nl-form input::placeholder { color: rgba(247,242,232,0.3); }
+    .nl-form input:focus { background: rgba(247,242,232,0.11); }
+    .nl-form button {
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      padding: 18px 34px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+    .nl-form button:hover { background: var(--terra-d); }
+    @media(max-width:480px) {
+      .nl-form { flex-direction: column; }
+      .nl-form input { border-right: 1px solid rgba(247,242,232,0.1); border-bottom: none; }
+    }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* STANDORT                                                     */
+    /* ════════════════════════════════════════════════════════════ */
+    #standort {
+      padding: 140px 0;
+      background: var(--cream);
+    }
+    .standort-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    @media(max-width:860px) { .standort-inner { grid-template-columns: 1fr; gap: 60px; } }
+
+    .standort-info .gold-rule { display: block; }
+
+    .info-block { margin-bottom: 38px; }
+    .info-block:last-of-type { margin-bottom: 0; }
+    .info-block h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .info-block h4::before {
+      content: '';
+      display: inline-block;
+      width: 22px; height: 1.5px;
+      background: var(--terra);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .info-block address, .info-block p {
+      font-style: normal;
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    .oeff {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .oeff tr { border-bottom: 1px solid rgba(30,18,8,0.07); }
+    .oeff tr:last-child { border-bottom: none; }
+    .oeff td {
+      padding: 10px 0;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+    }
+    .oeff td:first-child { font-weight: 500; color: var(--espresso); width: 50%; }
+    .oeff td:last-child { text-align: right; color: var(--verde); font-weight: 400; }
+    .oeff .closed td { color: rgba(30,18,8,0.3) !important; }
+
+    .standort-img-col { position: relative; }
+    .standort-img {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 40px 90px rgba(30,18,8,0.18);
+    }
+    .standort-img img { transition: transform 0.9s var(--t-ease); }
+    .standort-img:hover img { transform: scale(1.04); }
+    .standort-tag {
+      position: absolute;
+      top: 32px; left: 32px;
+      background: rgba(30,18,8,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(200,169,110,0.28);
+      padding: 16px 22px;
+      border-radius: 2px;
+      color: var(--cream);
+    }
+    .standort-tag p {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .standort-tag h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    /* ════════════════════════════════════════════════════════════ */
+    /* FOOTER                                                       */
+    /* ════════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--espresso);
+      color: rgba(247,242,232,0.55);
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding: 90px 0 64px;
+    }
+    @media(max-width:960px)  { .footer-main { grid-template-columns: 1fr 1fr; gap: 44px; padding: 64px 0 48px; } }
+    @media(max-width:500px)  { .footer-main { grid-template-columns: 1fr; gap: 40px; } }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .footer-brand-text {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.85;
+      max-width: 290px;
+      margin-bottom: 30px;
+    }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-socials a {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(247,242,232,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(247,242,232,0.5);
+      font-size: 1rem;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .footer-socials a:hover { background: var(--terra); border-color: var(--terra); color: #fff; }
+    .footer-socials svg { width: 17px; height: 17px; }
+
+    .footer-col h5 {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(247,242,232,0.06);
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(247,242,232,0.5);
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(247,242,232,0.05);
+      padding: 26px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom a {
+      color: rgba(247,242,232,0.3);
+      transition: color 0.3s;
+    }
+    .footer-bottom a:hover { color: var(--gold); }
+    .footer-made {
+      display: flex; align-items: center; gap: 7px;
+      color: rgba(247,242,232,0.28);
+    }
+    .heart { color: var(--terra); }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">Cenzo's Italy Shop</a>
-  <ul class="nav-links">
-    <li><a href="#about">Über uns</a></li>
-    <li><a href="#sortiment">Sortiment</a></li>
-    <li><a href="#location">Besuche uns</a></li>
-    <li><a href="#contact" class="nav-cta">Jetzt besuchen</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Neu in Memmingen · Bald geöffnet</p>
-    <h1>Echtes Italien.<br><em>Direkt in Memmingen.</em></h1>
-    <p class="hero-sub">Handverlesene Spezialitäten, Delikatessen und italienische Lebensart – mit Leidenschaft für euch ausgewählt.</p>
-    <div class="hero-btns">
-      <a href="#sortiment" class="btn-primary">Sortiment entdecken</a>
-      <a href="#about" class="btn-outline">Unsere Geschichte</a>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- WELCOME STRIP -->
-<div class="welcome-strip">
-  <div class="tricolor">
-    <span class="tc-green"></span>
-    <span class="tc-white"></span>
-    <span class="tc-red"></span>
-  </div>
-  <p>Benvenuti — Willkommen in einer kleinen Ecke Italiens mitten im Allgäu.</p>
+<!-- ── MOBILE NAV ─────────────────────────────────────────────── -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()" aria-label="Schließen">&#x2715;</button>
+  <a href="#ueber"      onclick="closeMobileNav()">Über uns</a>
+  <a href="#sortiment"  onclick="closeMobileNav()">Sortiment</a>
+  <a href="#instagram"  onclick="closeMobileNav()">Instagram</a>
+  <a href="#standort"   onclick="closeMobileNav()">Kontakt</a>
 </div>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-image fade-up">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" alt="Cenzo in seinem Laden">
-      <div class="about-image-accent">
-        <span>2025</span>
-        <span>Memmingen</span>
-      </div>
+<!-- ── NAV ───────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">Cenzo's</a>
+    <ul class="nav-links">
+      <li><a href="#ueber">Über uns</a></li>
+      <li><a href="#sortiment">Sortiment</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+      <li><a href="#standort">Kontakt</a></li>
+      <li><a href="#standort" class="nav-cta">Besuchen</a></li>
+    </ul>
+    <button class="nav-burger" onclick="openMobileNav()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                         -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Feinkost &amp; Delikatessen · Memmingen</span>
+    <h1 class="hero-title">Cenzo's</h1>
+    <p class="hero-title-alt">Italy Shop</p>
+    <div class="hero-divider">
+      <span></span><i></i><span></span>
     </div>
-    <div class="about-text fade-up">
-      <p class="section-label">La nostra storia</p>
-      <h2 class="section-title">Ciao, ich bin <em>Cenzo.</em></h2>
-      <p>Italien ist für mich kein Urlaub – es ist Heimat, Leidenschaft und Lebensweise. Seit Jahren reise ich durch die Regionen Italiens, besuche Produzenten, Märkte und kleine Manufakturen, und bringe das Beste davon mit nach Hause.</p>
-      <p>In Memmingen habe ich einen Ort geschaffen, der genau das widerspiegelt: authentische Produkte, ehrliche Qualität und das besondere Gefühl von la dolce vita – für alle, die Italien lieben oder kennenlernen wollen.</p>
-      <p>Alles was ihr bei mir findet, habe ich persönlich ausgewählt. Weil ich davon überzeugt bin. Weil es schmeckt. Weil es eine Geschichte hat.</p>
-      <div class="about-signature">— Cenzo</div>
+    <p class="hero-sub">Echtes Italien. Direkt in Memmingen.</p>
+    <div class="hero-actions">
+      <a href="#sortiment" class="btn btn-terra">Sortiment entdecken</a>
+      <a href="#ueber"     class="btn btn-outline-light">Unsere Geschichte</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- WELCOME STRIP                                                -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="welcome-strip">
+  <p>
+    A tavola non si invecchia
+    <em>–</em>
+    Am Tisch wird man nicht alt
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- ÜBER UNS                                                     -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="ueber">
+  <div class="wrap">
+    <div class="ueber-inner">
+
+      <!-- Text -->
+      <div class="ueber-text">
+        <span class="gold-rule fu"></span>
+        <span class="eyebrow fu fu-d1">La Nostra Storia</span>
+        <h2 class="section-title fu fu-d2">
+          Aus Leidenschaft zu <em>echtem Italien</em>
+        </h2>
+        <p class="section-body fu fu-d3">
+          Vincenzo – alle nennen ihn Cenzo – kam 2008 mit einem Koffer voller
+          Träume und einem Notizbuch voller Rezepte aus Kalabrien nach Memmingen.
+          Was als kleiner Marktstand begann, ist heute einer der liebsten
+          Feinkostläden der Stadt.
+        </p>
+        <p class="section-body fu fu-d3" style="margin-top:18px;">
+          Bei uns finden Sie keine Massenware – nur handverlesene Spezialitäten
+          direkt von Produzenten, die ihr Handwerk mit Herzblut betreiben.
+          Olivenöle aus jahrhundertealten Hainen in Apulien, Bronze-gezogene
+          Pasta aus der Toskana, Weine von Familienbetrieben, die ihr Wissen
+          von Generation zu Generation weitergeben.
+        </p>
+        <p class="section-body fu fu-d3" style="margin-top:18px;">
+          Kommen Sie vorbei – Cenzo erzählt Ihnen die Geschichte hinter jedem
+          Produkt persönlich. Wir laden zum Kosten ein.
+        </p>
+        <div class="ueber-cta fu fu-d4">
+          <a href="#sortiment" class="btn btn-terra">Zum Sortiment</a>
+          <a href="#standort"  class="btn btn-outline-dark">Uns besuchen</a>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="ueber-img-col fu fu-d2">
+        <div class="ueber-img">
+          <img
+            src="https://images.unsplash.com/photo-1493770348161-369560ae357d?w=1000&q=80"
+            alt="Cenzo's Italy Shop – Feinkost"
+            loading="lazy"
+          />
+        </div>
+        <div class="ueber-badge">
+          <strong>17</strong>
+          <span>Jahre<br>Leidenschaft</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- SORTIMENT -->
-<section class="sortiment" id="sortiment">
-  <div class="sortiment-header">
-    <div>
-      <p class="section-label">Il nostro assortimento</p>
-      <h2 class="section-title">Was dich <em>erwartet</em></h2>
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SORTIMENT                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="sortiment">
+  <div class="wrap">
+    <div class="sortiment-head">
+      <span class="gold-rule fu"></span>
+      <span class="eyebrow fu fu-d1">Il Nostro Assortimento</span>
+      <h2 class="section-title fu fu-d2">
+        Handverlesene Spezialitäten<br>aus ganz <em>Italien</em>
+      </h2>
+      <p class="section-body fu fu-d3">
+        Direktimport vom Erzeuger – über 200 Produkte, jedes mit einer Geschichte.
+      </p>
     </div>
-    <p style="font-size:0.9rem; color: #888; font-weight:300; max-width:300px; text-align:right;">Alles was das Herz begehrt – direkt aus den besten Regionen Italiens.</p>
   </div>
+
   <div class="sortiment-grid">
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=600&q=80" alt="Pasta">
-      <div class="product-overlay">
-        <span class="product-it">Pasta & Risotto</span>
-        <span class="product-de">Nudeln, Reis & mehr</span>
+    <!-- Pasta -->
+    <div class="s-card fu fu-d1">
+      <img
+        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
+        alt="Pasta & Risotto"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Pasta &amp; Risotto</p>
+        <p class="s-card-de">Pasta &amp; Risotto</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80" alt="Olivenöl">
-      <div class="product-overlay">
-        <span class="product-it">Olio & Aceto</span>
-        <span class="product-de">Olivenöle & Essige</span>
+    <!-- Olivenöle -->
+    <div class="s-card fu fu-d2">
+      <img
+        src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=800&q=80"
+        alt="Olio & Aceto"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Olio &amp; Aceto</p>
+        <p class="s-card-de">Olivenöle &amp; Essige</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=600&q=80" alt="Käse">
-      <div class="product-overlay">
-        <span class="product-it">Formaggi</span>
-        <span class="product-de">Käsespezialitäten</span>
+    <!-- Käse -->
+    <div class="s-card fu fu-d3">
+      <img
+        src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=800&q=80"
+        alt="Formaggi"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Formaggi</p>
+        <p class="s-card-de">Käsespezialitäten</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80" alt="Salumi">
-      <div class="product-overlay">
-        <span class="product-it">Salumi</span>
-        <span class="product-de">Wurst & Schinken</span>
+    <!-- Obst & Gemüse -->
+    <div class="s-card fu fu-d4">
+      <img
+        src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+        alt="Frutta &amp; Verdura"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Frutta &amp; Verdura</p>
+        <p class="s-card-de">Obst &amp; Gemüse</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Dolci">
-      <div class="product-overlay">
-        <span class="product-it">Dolci & Caffè</span>
-        <span class="product-de">Süßes & Kaffee</span>
+    <!-- Dolci -->
+    <div class="s-card fu fu-d5">
+      <img
+        src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&q=80"
+        alt="Dolci & Caffè"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Dolci &amp; Caffè</p>
+        <p class="s-card-de">Süßes &amp; Kaffee</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-    <div class="product-card fade-up">
-      <img src="https://images.unsplash.com/photo-1493552152660-f915ab47ae9d?w=600&q=80" alt="Lifestyle">
-      <div class="product-overlay">
-        <span class="product-it">Vita Italiana</span>
-        <span class="product-de">Accessoires & Lifestyle</span>
+    <!-- Weine -->
+    <div class="s-card fu fu-d6">
+      <img
+        src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80"
+        alt="Vini"
+        loading="lazy"
+      />
+      <div class="s-card-grad"></div>
+      <div class="s-card-body">
+        <p class="s-card-it">Vini Selezionati</p>
+        <p class="s-card-de">Ausgewählte Weine</p>
+        <span class="s-card-link">Entdecken →</span>
       </div>
     </div>
-  </div>
-  <div class="sortiment-teaser">
-    <p>Bald auch online bestellbar – bleib gespannt. 🇮🇹</p>
   </div>
 </section>
 
-<!-- LIFESTYLE BANNER -->
-<section class="lifestyle">
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- LIFESTYLE BANNER                                             -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="lifestyle">
   <div class="lifestyle-bg"></div>
-  <div class="lifestyle-content fade-up">
-    <p class="section-label">La dolce vita</p>
-    <h2>Mehr als<br>ein Laden.</h2>
-    <p>Cenzo's Italy Shop ist ein Stück Lebensfreude – ein Ort wo jedes Produkt eine Geschichte erzählt, und wo du für einen Moment spürst, wie es sich anfühlt, in Italien zu sein. Ohne Flug. Direkt in Memmingen.</p>
-    <a href="#about" class="btn-outline">Unsere Welt entdecken</a>
+  <div class="lifestyle-overlay"></div>
+  <div class="lifestyle-content fu">
+    <p class="lifestyle-quote">
+      In ogni goccia d'olio, in ogni filo di pasta –
+      il profumo dell'Italia vera.
+    </p>
+    <p class="lifestyle-attr">Cenzo's Italy Shop · Memmingen</p>
   </div>
 </section>
 
-<!-- PILLARS -->
-<section class="pillars">
-  <div class="pillars-inner">
-    <div class="pillars-header fade-up">
-      <p class="section-label">Warum Cenzo's</p>
-      <h2 class="section-title">Qualität, die man <em>schmeckt</em></h2>
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- DREI SÄULEN                                                  -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="saeulen">
+  <div class="wrap">
+    <div class="saeulen-head">
+      <span class="gold-rule fu"></span>
+      <span class="eyebrow fu fu-d1">Perché Cenzo's</span>
+      <h2 class="section-title fu fu-d2">Warum <em>Cenzo's</em>?</h2>
+      <p class="section-body fu fu-d3">
+        Drei Versprechen, die wir jeden Tag aufs Neue einhalten.
+      </p>
     </div>
-    <div class="pillars-grid">
-      <div class="pillar fade-up">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L8 6H3l3 4-2 5 4-1 4 4 4-4 4 1-2-5 3-4h-5z"/></svg>
-        </div>
-        <h3>Direkt von Produzenten</h3>
-        <p>Jedes Produkt hat eine Herkunft und ein Gesicht dahinter. Cenzo kennt seine Produzenten persönlich – und das schmeckt man.</p>
+
+    <div class="saeulen-grid">
+
+      <!-- Säule 1 -->
+      <div class="saeulen-item fu fu-d1">
+        <svg class="saeulen-icon" viewBox="0 0 64 64" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Globe / origin -->
+          <circle cx="32" cy="32" r="22"/>
+          <ellipse cx="32" cy="32" rx="10" ry="22"/>
+          <line x1="10" y1="32" x2="54" y2="32"/>
+          <path d="M14 21 Q32 26 50 21"/>
+          <path d="M14 43 Q32 38 50 43"/>
+        </svg>
+        <h3>Direkt vom Produzenten</h3>
+        <p>
+          Persönliche Beziehungen zu über 40 Erzeugern in ganz Italien –
+          von Sizilien bis zur Lombardei. Keine Zwischenhändler, nur
+          echte Qualität direkt zu Ihnen.
+        </p>
       </div>
-      <div class="pillar fade-up">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
+
+      <!-- Säule 2 -->
+      <div class="saeulen-item fu fu-d2">
+        <svg class="saeulen-icon" viewBox="0 0 64 64" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Ribbon/medal -->
+          <circle cx="32" cy="26" r="17"/>
+          <path d="M22 40 L17 58 L32 50 L47 58 L42 40"/>
+          <path d="M32 15 L34.5 21 L41 21.5 L36 26 L38 32.5 L32 29 L26 32.5 L28 26 L23 21.5 L29.5 21 Z"/>
+        </svg>
         <h3>Qualität ohne Kompromisse</h3>
-        <p>Nur was Cenzo selbst liebt, kommt ins Sortiment. Kein Massenprodukt, kein Kompromiss – nur das Beste aus Italien.</p>
+        <p>
+          Cenzo kostet jedes Produkt persönlich, bevor es ins Regal kommt.
+          DOP-, IGP- und Bio-Zertifizierungen sind bei uns keine Ausnahme –
+          sie sind der Standard.
+        </p>
       </div>
-      <div class="pillar fade-up">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+
+      <!-- Säule 3 -->
+      <div class="saeulen-item fu fu-d3">
+        <svg class="saeulen-icon" viewBox="0 0 64 64" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Location heart -->
+          <path d="M32 56 C32 56 12 40 12 24 C12 15 21 8 32 8 C43 8 52 15 52 24 C52 40 32 56 32 56Z"/>
+          <path d="M24 25 C24 21.5 27.5 19.5 32 23 C36.5 19.5 40 21.5 40 25 C40 30.5 32 36 32 36 C32 36 24 30.5 24 25Z"/>
+        </svg>
+        <h3>Lokal &amp; persönlich</h3>
+        <p>
+          Wir kennen unsere Kunden beim Namen. Cenzo und sein Team
+          beraten Sie auf Augenhöhe – mit Leidenschaft, Wissen und
+          einer Geschichte hinter jedem Produkt.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- INSTAGRAM                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="instagram">
+  <div class="wrap">
+    <div class="ig-head fu">
+      <span class="gold-rule" style="margin:0 auto 22px;"></span>
+      <span class="eyebrow">Folgen Sie uns</span>
+      <h2 class="section-title">
+        @cenzos.italy.shop
+      </h2>
+      <a
+        class="ig-handle"
+        href="https://www.instagram.com/cenzos.italy.shop/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Auf Instagram ansehen
+      </a>
+    </div>
+  </div>
+
+  <div class="ig-grid">
+    <a class="ig-post fu fu-d1" href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener noreferrer">
+      <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=600&q=80" alt="Pasta" loading="lazy"/>
+      <div class="ig-post-ov">
+        <div class="ig-post-meta">
+          <span>♥ 487</span>
+          <span>💬 34</span>
         </div>
-        <h3>Lokal & persönlich</h3>
-        <p>Klein, fein und persönlich. Euer Nachbarschaftsladen für echtes Italien – mitten in Memmingen, mit echtem Herz dahinter.</p>
       </div>
-    </div>
+    </a>
+    <a class="ig-post fu fu-d2" href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener noreferrer">
+      <img src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?w=600&q=80" alt="Antipasto" loading="lazy"/>
+      <div class="ig-post-ov">
+        <div class="ig-post-meta">
+          <span>♥ 623</span>
+          <span>💬 51</span>
+        </div>
+      </div>
+    </a>
+    <a class="ig-post fu fu-d3" href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener noreferrer">
+      <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80" alt="Feinkost" loading="lazy"/>
+      <div class="ig-post-ov">
+        <div class="ig-post-meta">
+          <span>♥ 312</span>
+          <span>💬 22</span>
+        </div>
+      </div>
+    </a>
+    <a class="ig-post fu fu-d4" href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener noreferrer">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Italian Food" loading="lazy"/>
+      <div class="ig-post-ov">
+        <div class="ig-post-meta">
+          <span>♥ 741</span>
+          <span>💬 68</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="ig-footer">
+    <a
+      class="btn btn-terra"
+      href="https://www.instagram.com/cenzos.italy.shop/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Alle Beiträge ansehen</a>
   </div>
 </section>
 
-<!-- INSTAGRAM -->
-<section class="instagram">
-  <div class="instagram-inner">
-    <div class="instagram-header fade-up">
-      <p class="section-label">Social Media</p>
-      <h2 class="section-title">Folge uns auf Instagram</h2>
-      <span class="instagram-handle">@cenzos.italy.shop</span>
-      <p style="font-size:0.85rem; color:#888; font-weight:300; margin-top:0.8rem;">Täglich neue Einblicke – aus dem Laden und direkt aus Italien.</p>
-    </div>
-    <div class="instagram-grid">
-      <div class="insta-item fade-up"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt=""><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div></div>
-      <div class="insta-item fade-up"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt=""><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div></div>
-      <div class="insta-item fade-up"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80" alt=""><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div></div>
-      <div class="insta-item fade-up"><img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&q=80" alt=""><div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <div class="newsletter-inner fade-up">
-    <h2>Immer als Erstes informiert.</h2>
-    <p>Neue Produkte, saisonale Spezialitäten, Events – und bald: unser Onlineshop. Kein Spam, nur das Beste aus Italien.</p>
-    <div class="newsletter-form">
-      <input type="email" placeholder="Deine E-Mail-Adresse">
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- NEWSLETTER                                                   -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="newsletter">
+  <div class="nl-inner fu">
+    <span class="eyebrow">Newsletter</span>
+    <h2 class="section-title">
+      Immer auf dem<br><em style="color:var(--gold-l)">letzten Stand</em>
+    </h2>
+    <p class="section-body">
+      Neue Ankünfte, saisonale Highlights, Verkostungsevents – alles direkt
+      in Ihr Postfach. Kein Spam, nur echte Geschichten aus Italien.
+    </p>
+    <form class="nl-form" onsubmit="handleNewsletter(event)">
+      <input
+        type="email"
+        placeholder="Ihre E-Mail-Adresse"
+        required
+        aria-label="E-Mail-Adresse"
+      />
       <button type="submit">Anmelden</button>
-    </div>
-    <p class="newsletter-fine">Kein Spam. Jederzeit abmeldbar.</p>
+    </form>
+    <p id="nl-success" style="display:none;margin-top:18px;color:var(--gold-l);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;">
+      Benvenuti! Wir freuen uns auf Sie.
+    </p>
   </div>
 </section>
 
-<!-- LOCATION -->
-<section class="location" id="location">
-  <div class="location-inner">
-    <div class="location-info fade-up">
-      <p class="section-label">Wo wir sind</p>
-      <h2 class="section-title">Besuche uns in <em>Memmingen</em></h2>
-      <div style="margin-top: 2.5rem;">
-        <div class="location-detail">
-          <div class="location-detail-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div class="location-detail-text">
-            <strong>Adresse</strong>
-            <span>Demnächst bekannt · 87700 Memmingen</span>
-          </div>
-        </div>
-        <div class="location-detail">
-          <div class="location-detail-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div class="location-detail-text">
-            <strong>Öffnungszeiten</strong>
-            <span>Mo – Fr: 9:00 – 18:30 Uhr<br>Samstag: 9:00 – 16:00 Uhr</span>
-          </div>
-        </div>
-        <div class="location-detail">
-          <div class="location-detail-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <div class="location-detail-text">
-            <strong>Kontakt</strong>
-            <span>Bald verfügbar<br>@cenzos.italy.shop</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="location-map fade-up">
-      <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=60" alt="Memmingen">
-      <div class="map-pin">
-        <div class="map-pin-dot"></div>
-        <span class="map-label">Cenzo's Italy Shop · Memmingen</span>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- STANDORT                                                     -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section id="standort">
+  <div class="wrap">
+    <div class="standort-inner">
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand-name">Cenzo's Italy Shop</div>
-        <div class="footer-tagline">Echtes Italien. Direkt in Memmingen.</div>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+      <!-- Info -->
+      <div class="standort-info">
+        <span class="gold-rule fu"></span>
+        <span class="eyebrow fu fu-d1">Dove Siamo</span>
+        <h2 class="section-title fu fu-d2">
+          Besuchen Sie<br>uns in <em>Memmingen</em>
+        </h2>
+
+        <div class="info-block fu fu-d3">
+          <h4>Adresse</h4>
+          <address>
+            Cenzo's Italy Shop<br>
+            Musterstraße 12<br>
+            87700 Memmingen<br>
+            Deutschland
+          </address>
+        </div>
+
+        <div class="info-block fu fu-d4">
+          <h4>Kontakt</h4>
+          <p>
+            Telefon: +49 (0) 8331 123 456<br>
+            E-Mail: info@cenzos-italy-shop.de<br>
+            Instagram: @cenzos.italy.shop
+          </p>
+        </div>
+
+        <div class="info-block fu fu-d5">
+          <h4>Öffnungszeiten</h4>
+          <table class="oeff">
+            <tr><td>Montag – Freitag</td><td>09:00 – 18:30</td></tr>
+            <tr><td>Samstag</td>         <td>09:00 – 17:00</td></tr>
+            <tr class="closed"><td>Sonntag</td><td>Geschlossen</td></tr>
+          </table>
+        </div>
+
+        <div class="fu fu-d6">
+          <a href="mailto:info@cenzos-italy-shop.de" class="btn btn-terra">
+            Jetzt anfragen
           </a>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="#about">Über uns</a></li>
-          <li><a href="#sortiment">Sortiment</a></li>
-          <li><a href="#location">Besuche uns</a></li>
-        </ul>
+
+      <!-- Image -->
+      <div class="standort-img-col fu fu-d2">
+        <div class="standort-img">
+          <img
+            src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=80"
+            alt="Memmingen"
+            loading="lazy"
+          />
+        </div>
+        <div class="standort-tag">
+          <p>Unser Standort</p>
+          <h5>Memmingen, Bayern</h5>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Öffnungszeiten</h4>
-        <ul>
-          <li>Mo – Fr: 9:00 – 18:30</li>
-          <li>Samstag: 9:00 – 16:00</li>
-          <li>Sonntag: geschlossen</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Kontakt</h4>
-        <ul>
-          <li>Memmingen</li>
-          <li><a href="#">@cenzos.italy.shop</a></li>
-          <li><a href="#">info@cenzos-italy.de</a></li>
-        </ul>
-      </div>
+
     </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                       -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-main">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <span class="footer-logo">Cenzo's</span>
+        <p class="footer-brand-text">
+          Authentische italienische Feinkost in Memmingen –
+          handverlesen, mit Leidenschaft und direktem Kontakt
+          zu unseren Erzeugern.
+        </p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.18a8.27 8.27 0 0 0 4.84 1.56V7.29a4.85 4.85 0 0 1-1.07-.6z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul class="footer-links">
+          <li><a href="#ueber">Über uns</a></li>
+          <li><a href="#sortiment">Sortiment</a></li>
+          <li><a href="#instagram">Instagram</a></li>
+          <li><a href="#standort">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <!-- Sortiment -->
+      <div class="footer-col">
+        <h5>Sortiment</h5>
+        <ul class="footer-links">
+          <li><a href="#sortiment">Pasta &amp; Risotto</a></li>
+          <li><a href="#sortiment">Olivenöle &amp; Essige</a></li>
+          <li><a href="#sortiment">Käse &amp; Feinkost</a></li>
+          <li><a href="#sortiment">Obst &amp; Gemüse</a></li>
+          <li><a href="#sortiment">Dolci &amp; Caffè</a></li>
+          <li><a href="#sortiment">Weine</a></li>
+        </ul>
+      </div>
+
+      <!-- Kontakt -->
+      <div class="footer-col">
+        <h5>Kontakt</h5>
+        <ul class="footer-links">
+          <li><a href="mailto:info@cenzos-italy-shop.de">info@cenzos-italy-shop.de</a></li>
+          <li><a href="tel:+4983311234456">+49 8331 123 456</a></li>
+          <li><a href="https://www.instagram.com/cenzos.italy.shop/" target="_blank" rel="noopener">@cenzos.italy.shop</a></li>
+          <li style="margin-top:12px;font-size:0.85rem;font-weight:300;">
+            Mo–Fr &nbsp; 09:00–18:30<br>
+            Sa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 09:00–17:00
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
     <div class="footer-bottom">
-      <span>© 2025 Cenzo's Italy Shop · Mit ❤ aus Memmingen</span>
-      <div>
+      <p>© 2026 Cenzo's Italy Shop · Alle Rechte vorbehalten</p>
+      <div class="footer-made">
+        Gemacht mit <span class="heart">♥</span> für echten Genuss
+      </div>
+      <div style="display:flex;gap:22px;">
         <a href="#">Impressum</a>
         <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
       </div>
     </div>
   </div>
 </footer>
 
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                      -->
+<!-- ════════════════════════════════════════════════════════════ -->
 <script>
-  const navbar = document.getElementById('navbar');
+  /* NAV scroll class */
+  const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 80);
-  });
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  /* Mobile nav */
+  function openMobileNav() {
+    document.getElementById('mobileNav').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Intersection Observer – fade-up animations */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+  /* Newsletter form */
+  function handleNewsletter(e) {
+    e.preventDefault();
+    e.target.style.display = 'none';
+    document.getElementById('nl-success').style.display = 'block';
+  }
+
+  /* Subtle nav active-link highlight on scroll */
+  const sections = document.querySelectorAll('section[id], div[id="newsletter"]');
+  const navAs    = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.id;
+    });
+    navAs.forEach(a => {
+      a.style.color = '';
+      const href = a.getAttribute('href').slice(1);
+      if (href === current && !a.classList.contains('nav-cta')) {
+        a.style.color = nav.classList.contains('scrolled')
+          ? 'var(--terra)'
+          : 'rgba(255,255,255,1)';
+      }
+    });
+  }, { passive: true });
 </script>
 </body>
 </html>
